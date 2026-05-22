@@ -1,0 +1,114 @@
+[
+  {
+    "title": "MONEYBALL",
+    "year": 2011,
+    "poster": "posters/Moneyball.jpg",
+    "slug": "Moneyball",
+    "status": "watched"
+  },
+  {
+    "title": "St.Vincent",
+    "year": 2014,
+    "poster": "posters/St.Vincent.jpg",
+    "slug": "St.Vincent",
+    "status": "watched"
+  },
+  {
+    "title": "8 Mile",
+    "year": 2002,
+    "poster": "posters/8-Mile.jpg",
+    "slug": "8-Mile",
+    "status": "watched"
+  },
+  {
+    "title": "McFarland USA",
+    "year": 2015,
+    "poster": "posters/McFarland-USA.jpg",
+    "slug": "McFarland-USA",
+    "status": "watched"
+  },
+  {
+    "title": "The Green Mile",
+    "year": 1999,
+    "poster": "posters/The-Green-Mile.jpg",
+    "slug": "The-Green-Mile",
+    "status": "watched"
+  },
+  {
+    "title": "Green Book",
+    "year": 2008,
+    "poster": "posters/Green-Book.jpg",
+    "slug": "Green-Book",
+    "status": "watched"
+  },
+  {
+    "title": "Straight Outta Compton",
+    "year": 2015,
+    "poster": "posters/Straight-Outta-Compton.jpg",
+    "slug": "straight-outta-compton",
+    "status": "watched"
+  },
+    {
+    "title": "Swapped",
+    "year": 2026,
+    "poster": "posters/Swapped.jpg",
+    "slug": "Swapped",
+    "status": "watched"
+  },
+    {
+    "title": "CODA",
+    "year": 2021,
+    "poster": "posters/Coda.jpg",
+    "slug": "Coda",
+    "status": "watched"
+  },
+    {
+    "title": "WALL-E",
+    "year": 2008,
+    "poster": "posters/Wall-E.jpg",
+    "slug": "WALL-E",
+    "status": "watched"
+  },
+    {
+    "title": "Real Steel",
+    "year": 2011,
+    "poster": "posters/Real-Steel.jpg",
+    "slug": "Real-Steel",
+    "status": "watched"
+  },
+    {
+    "title": "Mortal Engines",
+    "year": 2018,
+    "poster": "posters/Mortal-Engines.jpg",
+    "slug": "Mortal-Engines",
+    "status": "watched"
+  },
+    {
+    "title": "John Carter",
+    "year": 2012,
+    "poster": "posters/John-Carter.jpg",
+    "slug": "John-Carter",
+    "status": "watched"
+  },
+    {
+    "title": "Valerian and the City",
+    "year": 2017,
+    "poster": "posters/Valerina-and-the-city.jpg",
+    "slug": "Valerina-and-the-city",
+    "status": "watched"
+  },
+    {
+    "title": "Alita Battle Angel",
+    "year": 2017,
+    "poster": "posters/Alita-Battle-Angel.jpg",
+    "slug": "Alita-Battle-Angel",
+    "status": "watched"
+  },
+    {
+    "title": "Ready Player One",
+    "year": 2017,
+    "poster": "posters/Ready-Player-One.jpg",
+    "slug": "Ready-Player-One",
+    "status": "watched"
+  }
+]

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Playfair+Display:wght@700&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+  <button class="theme-toggle" @click="toggleTheme" :title="isNight ? 'Switch to Day' : 'Switch to Night'">
+    <svg v-if="isNight" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+    <svg v-else xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  </button>
+
+  <header class="header">
+    <p>{{ filter === 'watched' ? 'Archived Collection of' : 'Wishlist of' }}</p>
+    <h1 class="page-title">{{ filter === 'watched' ? 'STORIES I LOVE' : 'STORIES I WANT TO WATCH' }}</h1>
+    <div class="filter-buttons">
+      <button :class="['filter-btn', { active: filter === 'watched' }]" @click="filter = 'watched'">Watched</button>
+      <button :class="['filter-btn', { active: filter === 'towatch' }]" @click="filter = 'towatch'">To Watch</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <template v-if="filter === 'watched'">
+      <card v-for="(movie, index) in filteredMovies" :key="index" :data-image="movie.poster" :movie-title="movie.title" :movie-slug="movie.slug" :movie-year="movie.year">
+        <h1 slot="header">{{ movie.title }}</h1>
+        <p slot="content">{{ movie.year }}</p>
+      </card>
+    </template>
+    <template v-else>
+      <div class="towatch-list">
+        <div v-for="(movie, index) in filteredMovies" :key="index" class="towatch-item">
+          <span class="towatch-title">{{ movie.title }}</span>
+          <span class="towatch-year">{{ movie.year }}</span>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+<script src="sccript.js"></script>
+</body>
+</html>

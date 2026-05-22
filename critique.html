@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Critique</title>
+  <link rel="stylesheet" href="critique-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="app" class="critique-container">
+    <button class="theme-toggle" @click="toggleTheme" :title="isNight ? 'Switch to Day' : 'Switch to Night'">
+      <svg v-if="isNight" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      <svg v-else xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+
+    <a href="index.html" class="back-link">Back to Collection</a>
+
+    <div v-if="critique">
+      <header class="critique-header">
+        <h1 class="critique-title">{{ critique.title }}</h1>
+        <div class="critique-meta">
+          <span v-if="critique.year">{{ critique.year }}</span>
+          <span v-if="critique.director">{{ critique.director }}</span>
+          <span v-if="critique.genre">{{ critique.genre }}</span>
+        </div>
+      </header>
+
+      <img v-if="posterUrl" :src="posterUrl" :alt="critique.title" class="critique-poster">
+
+      <div class="critique-body">
+        <div v-for="(block, i) in critiqueContent" :key="i" class="content-block">
+          <p v-if="block.type === 'paragraph'" :class="{ 'first-para': isFirstParagraph(i) }">{{ block.text }}</p>
+          <blockquote v-else-if="block.type === 'quote'">{{ block.text }}</blockquote>
+        </div>
+      </div>
+
+      <div v-if="critique.rating" class="rating">
+        Rating
+        <span class="score">{{ critique.rating }}</span>
+      </div>
+
+      <div v-if="critique.posterCredit" class="poster-credit">
+        Poster credit: {{ critique.posterCredit }}
+      </div>
+    </div>
+
+    <div v-else class="no-movie">
+      No film selected
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        critique: null,
+        posterUrl: '',
+        isNight: localStorage.getItem('theme') === 'night'
+      },
+      computed: {
+        critiqueContent() {
+          if (!this.critique) return [];
+          if (this.critique.content) return this.critique.content;
+          if (this.critique.critique) {
+            return this.critique.critique.split('\n\n').filter(p => p.trim()).map(text => ({
+              type: 'paragraph',
+              text: text.trim()
+            }));
+          }
+          return [];
+        }
+      },
+      methods: {
+        isFirstParagraph(index) {
+          for (let i = 0; i <= index; i++) {
+            if (this.critiqueContent[i].type === 'paragraph') {
+              return i === index;
+            }
+          }
+          return false;
+        },
+        toggleTheme() {
+          this.isNight = !this.isNight;
+          document.body.classList.toggle('night', this.isNight);
+          localStorage.setItem('theme', this.isNight ? 'night' : 'day');
+        }
+      },
+      mounted() {
+        if (this.isNight) {
+          document.body.classList.add('night');
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+
+        if (!slug) return;
+
+        // Fetch the critique JSON file
+        fetch(`./critiques/${slug}.json`)
+          .then(res => {
+            if (!res.ok) throw new Error('Critique not found');
+            return res.json();
+          })
+          .then(data => {
+            this.critique = data;
+          })
+          .then(() => fetch('./movies.json'))
+          .then(res => res.json())
+          .then(movies => {
+            const movie = movies.find(m => m.slug === slug);
+            if (movie) this.posterUrl = movie.poster;
+          })
+          .catch(err => console.error('Failed to load critique:', err));
+      }
+    });
+  </script>
+
+</body>
+</html>
