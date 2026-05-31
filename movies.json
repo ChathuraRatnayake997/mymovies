@@ -110,5 +110,12 @@
     "poster": "posters/Ready-Player-One.jpg",
     "slug": "Ready-Player-One",
     "status": "watched"
+  },
+    {
+    "title": "HARDBALL",
+    "year": 2001,
+    "poster": "posters/HARDBALL.jpg",
+    "slug": "HARDBALL",
+    "status": "watched"
   }
 ]
